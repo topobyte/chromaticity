@@ -29,7 +29,6 @@
 
 package de.topobyte.chromaticity;
 
-import java.awt.Color;
 
 /**
  * The HSLColor class provides methods to manipulate HSL (Hue, Saturation
@@ -51,7 +50,7 @@ import java.awt.Color;
  */
 public class HSLColor
 {
-	private Color rgb;
+	private ColorCode rgb;
 	private float[] hsl;
 	private float alpha;
 
@@ -61,11 +60,21 @@ public class HSLColor
 	 * @param rgb
 	 *            the RGB Color object
 	 */
-	public HSLColor(Color rgb)
+	public HSLColor(ColorCode rgb)
 	{
 		this.rgb = rgb;
 		hsl = fromRGB(rgb);
 		alpha = rgb.getAlpha() / 255.0f;
+	}
+
+	public HSLColor(int r, int g, int b)
+	{
+		this(new ColorCode(r, g, b));
+	}
+
+	public HSLColor(int rgb)
+	{
+		this(new ColorCode(rgb));
 	}
 
 	/**
@@ -139,7 +148,7 @@ public class HSLColor
 	 *            - the Hue value between 0 - 360
 	 * @return the RGB Color object
 	 */
-	public Color adjustHue(float degrees)
+	public ColorCode adjustHue(float degrees)
 	{
 		return toRGB(degrees, hsl[1], hsl[2], alpha);
 	}
@@ -152,7 +161,7 @@ public class HSLColor
 	 *            - the Luminance value between 0 - 100
 	 * @return the RGB Color object
 	 */
-	public Color adjustLuminance(float percent)
+	public ColorCode adjustLuminance(float percent)
 	{
 		return toRGB(hsl[0], hsl[1], percent, alpha);
 	}
@@ -165,7 +174,7 @@ public class HSLColor
 	 *            - the Saturation value between 0 - 100
 	 * @return the RGB Color object
 	 */
-	public Color adjustSaturation(float percent)
+	public ColorCode adjustSaturation(float percent)
 	{
 		return toRGB(hsl[0], percent, hsl[2], alpha);
 	}
@@ -179,7 +188,7 @@ public class HSLColor
 	 *            - the value between 0 - 100
 	 * @return the RGB Color object
 	 */
-	public Color adjustShade(float percent)
+	public ColorCode adjustShade(float percent)
 	{
 		float multiplier = (100.0f - percent) / 100.0f;
 		float l = Math.max(0.0f, hsl[2] * multiplier);
@@ -196,7 +205,7 @@ public class HSLColor
 	 *            - the value between 0 - 100
 	 * @return the RGB Color object
 	 */
-	public Color adjustTone(float percent)
+	public ColorCode adjustTone(float percent)
 	{
 		float multiplier = (100.0f + percent) / 100.0f;
 		float l = Math.min(100.0f, hsl[2] * multiplier);
@@ -221,7 +230,7 @@ public class HSLColor
 	 *
 	 * @return the RGB Color object
 	 */
-	public Color getComplementary()
+	public ColorCode getComplementary()
 	{
 		float hue = (hsl[0] + 180.0f) % 360.0f;
 		return toRGB(hue, hsl[1], hsl[2]);
@@ -262,7 +271,7 @@ public class HSLColor
 	 *
 	 * @return the RGB Color object.
 	 */
-	public Color getRGB()
+	public ColorCode getRGB()
 	{
 		return rgb;
 	}
@@ -291,7 +300,7 @@ public class HSLColor
 	 *
 	 * @return an array containing the 3 HSL values.
 	 */
-	public static float[] fromRGB(Color color)
+	public static float[] fromRGB(ColorCode color)
 	{
 		// Get RGB values in the range 0 - 1
 
@@ -347,7 +356,7 @@ public class HSLColor
 	 *
 	 * @returns the RGB Color object
 	 */
-	public static Color toRGB(float[] hsl)
+	public static ColorCode toRGB(float[] hsl)
 	{
 		return toRGB(hsl, 1.0f);
 	}
@@ -364,7 +373,7 @@ public class HSLColor
 	 *
 	 * @returns the RGB Color object
 	 */
-	public static Color toRGB(float[] hsl, float alpha)
+	public static ColorCode toRGB(float[] hsl, float alpha)
 	{
 		return toRGB(hsl[0], hsl[1], hsl[2], alpha);
 	}
@@ -381,7 +390,7 @@ public class HSLColor
 	 *
 	 * @returns the RGB Color object
 	 */
-	public static Color toRGB(float h, float s, float l)
+	public static ColorCode toRGB(float h, float s, float l)
 	{
 		return toRGB(h, s, l, 1.0f);
 	}
@@ -400,7 +409,7 @@ public class HSLColor
 	 *
 	 * @returns the RGB Color object
 	 */
-	public static Color toRGB(float h, float s, float l, float alpha)
+	public static ColorCode toRGB(float h, float s, float l, float alpha)
 	{
 		if (s < 0.0f || s > 100.0f) {
 			String message = "Color parameter outside of expected range - Saturation";
@@ -441,7 +450,7 @@ public class HSLColor
 		g = Math.min(g, 1.0f);
 		b = Math.min(b, 1.0f);
 
-		return new Color(r, g, b, alpha);
+		return new ColorCode(r, g, b, alpha);
 	}
 
 	private static float HueToRGB(float p, float q, float h)
