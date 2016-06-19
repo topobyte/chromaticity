@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <name>Chromaticity</name>
+  <name>Chromaticity Core</name>
   <description>Chromaticity color library, core components</description>
   <url>https://github.com/topobyte/chromaticity</url>
 </project>
