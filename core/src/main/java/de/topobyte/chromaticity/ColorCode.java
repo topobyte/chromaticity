@@ -47,6 +47,21 @@ public class ColorCode
 				| ((b & 0xFF) << 0);
 	}
 
+	public ColorCode(float r, float g, float b)
+	{
+		this(int255(r), int255(g), int255(b));
+	}
+
+	public ColorCode(float r, float g, float b, float a)
+	{
+		this(int255(r), int255(g), int255(b), int255(a));
+	}
+
+	private static int int255(float f)
+	{
+		return (int) (f * 255 + 0.5);
+	}
+
 	public int getValue()
 	{
 		return value;
@@ -76,6 +91,42 @@ public class ColorCode
 	public int getBlue()
 	{
 		return value & 0xFF;
+	}
+
+	// Mimics behavior from java.awt.Color
+	public float[] getRGBColorComponents(float[] output)
+	{
+		float[] f;
+		if (output == null) {
+			f = new float[3];
+		} else {
+			f = output;
+		}
+		f[0] = f1(getRed());
+		f[1] = f1(getGreen());
+		f[2] = f1(getBlue());
+		return f;
+	}
+
+	// Mimics behavior from java.awt.Color
+	public float[] getRGBComponents(float[] output)
+	{
+		float[] f;
+		if (output == null) {
+			f = new float[4];
+		} else {
+			f = output;
+		}
+		f[0] = f1(getRed());
+		f[1] = f1(getGreen());
+		f[2] = f1(getBlue());
+		f[3] = f1(getAlpha());
+		return f;
+	}
+
+	private float f1(int red)
+	{
+		return red / 255f;
 	}
 
 }
