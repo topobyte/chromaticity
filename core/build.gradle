@@ -4,9 +4,6 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
-    compile 'de.topobyte:jsi:1.1.0'
-    compile 'de.topobyte:jts-utils:0.0.6'
-    compile 'com.vividsolutions:jts:1.13'
 }
 
 def pomInfo = new XmlSlurper().parse(new File('core/info.pom'));
