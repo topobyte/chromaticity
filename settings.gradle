@@ -1,0 +1,4 @@
+include 'core', 'awt', 'tools'
+project(':core').name = 'chromaticity-core'
+project(':awt').name = 'chromaticity-awt'
+project(':tools').name = 'chromaticity-tools'
