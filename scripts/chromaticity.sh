@@ -10,5 +10,4 @@ fi
 
 CLASSPATH="$LIBS/*"
 
-echo "$CLASSPATH"
 exec java -cp "$CLASSPATH" "$@"
