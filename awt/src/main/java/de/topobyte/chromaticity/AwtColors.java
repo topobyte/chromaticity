@@ -27,4 +27,9 @@ public class AwtColors
 		return new Color(c.getValue(), true);
 	}
 
+	public static ColorCode convert(Color c)
+	{
+		return new ColorCode(c.getRGB(), true);
+	}
+
 }
