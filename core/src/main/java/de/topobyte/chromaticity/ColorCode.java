@@ -93,6 +93,26 @@ public class ColorCode
 		return value & 0xFF;
 	}
 
+	public void setAlpha(int a)
+	{
+		value = (value & 0x00ffffff) | ((a & 0xff) << 24);
+	}
+
+	public void setRed(int r)
+	{
+		value = (value & 0xff00ffff) | ((r & 0xff) << 16);
+	}
+
+	public void setGreen(int g)
+	{
+		value = (value & 0xffff00ff) | ((g & 0xff) << 8);
+	}
+
+	public void setBlue(int b)
+	{
+		value = (value & 0xffffff00) | (b & 0xff);
+	}
+
 	// Mimics behavior from java.awt.Color
 	public float[] getRGBColorComponents(float[] output)
 	{
